@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:padding="16dp">
+
+    <!-- Titel -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Uppgift 1: Shake (Accelerometer + Proximity)"
+        android:textColor="@color/onBg"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Kort som ändras till rött när sensorn täcks -->
+    <View
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!-- bild på en mobil som roteras av accelerometern -->
+    <ImageView
+        android:id="@+id/ivPhone"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Roterande bild via accelerometer"
+        android:elevation="6dp"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!-- Sensorvärden (ACC) -->
+    <TextView
+        android:id="@+id/tvAx"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ax: --"
+        android:textColor="@color/onBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPhone" />
+
+    <TextView
+        android:id="@+id/tvAy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="ay: --"
+        android:textColor="@color/onBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAx" />
+
+    <TextView
+        android:id="@+id/tvAz"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="az: --"
+        android:textColor="@color/onBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAy" />
+
+    <!-- Proximity-sensor (extra sensor) -->
+    <TextView
+        android:id="@+id/tvProximity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Proximity: -- cm"
+        android:textColor="@color/onBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAz" />
+
+    <!-- ProgressBar kopplad till proximity-sensor -->
+    <ProgressBar
+        android:id="@+id/pbProximity"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="6dp"
+        android:max="5"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_proximity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvProximity" />
+
+    <!-- Switch som aktiverar/inaktiverar sensorer -->
+    <Switch
+        android:id="@+id/swEnableSensors"
+        android:layout_width="159dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="405dp"
+        android:layout_marginEnd="237dp"
+        android:layout_marginBottom="283dp"
+        android:text="Sensorer på/av"
+        android:textColor="@color/onBg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- SeekBar som styr shake-tröskeln -->
+    <SeekBar
+        android:id="@+id/sbThreshold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/swEnableSensors"
+        app:layout_constraintTop_toBottomOf="@id/pbProximity" />
+
+    <TextView
+        android:id="@+id/tvThreshold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Shake-tröskel: -- g"
+        android:textColor="@color/onBg"
+        app:layout_constraintEnd_toEndOf="@id/sbThreshold"
+        app:layout_constraintStart_toStartOf="@id/sbThreshold"
+        app:layout_constraintTop_toBottomOf="@id/sbThreshold" />
+
+    <!-- Kalibrera-knapp vars bakgrund färgas av proximity-sensorn -->
+    <Button
+        android:id="@+id/btnCalibrate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:backgroundTint="@color/primary"
+        android:text="Kalibrera rotation (nollställ)"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvThreshold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
